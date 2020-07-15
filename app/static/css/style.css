@@ -3,10 +3,50 @@
 */
 
 /* HTML selector rules */
+div.container {
+  padding: 50px;
+}
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form > button {
+  margin: 15px;
+  align-self: flex-end;
+}
+
+form > p {
+  margin: 15px 0 5px 0;
+}
+
+header.navbar {
+  padding: 10px 100px;
+  background-color: rgb(49, 14, 90);
+  justify-content: space-between;
+}
+
+header p {
+  font-size: 1.4rem;
+}
+
+header a {
+  margin-left: 20px;
+}
+
+main {
+  margin-top: 50px;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 3px rgb(202, 197, 190);
+}
 
 /* Class rules */
+.hidden {
+  display: none;
+}
 
-
-/* ID rules */
-
+.row {
+  justify-content: space-evenly;
+}

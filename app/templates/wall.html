@@ -1,0 +1,36 @@
+<!--
+  Author: Justin Clayton
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Wall</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+    crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static 'js/index.js' %}"></script>
+</head>
+<body>
+  <header class="navbar text-light">
+    <h1>Coding Dojo Wall</h1>
+    <p>
+      Welcome Me
+      <a class="btn btn-warning" href="{% url 'app:logout' %}">Logout</a>
+    </p>
+  </header>
+  <div class="container bg-light">
+    <h2>Create a New Message</h2>
+    <form action="">
+      <textarea name="message_text" class="form-control"></textarea>
+      <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+  </div>
+</body>
+</html>
