@@ -50,6 +50,7 @@ def register(request):
       )
       request.session['user_id'] = user.id
       request.session['user_name'] = user.first_name
+      request.session['token'] = User.objects.gen_token(user.id)
       return redirect(reverse('app:wall'))
 
     request.session['reg_err'] = True
@@ -91,6 +92,19 @@ def destroy_message(request, message_id):
 
 # POST route for creating a new comment on a message
 def create_comment(request):
+  if request.method == 'POST':
+    user_id = request.session['user_id']
+    message = Message.objects.get(id=request.POST['message_id'])
+    is_auth = User.objects.is_user_authenticated(
+      user_id,
+      request.session['token']
+    )
+    if is_auth:
+      Comment.objects.create(
+        owner = User.objects.get(id=user_id),
+        on_message = message,
+        text = request.POST['comment_text']
+      )
   return redirect(reverse('app:wall'))
 
 # POST route for deleting a comment for logged in user

@@ -42,22 +42,23 @@
           {{ message.text }}
         </p>
         <div id="comments">
-          <h4>This is a comment</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut sequi
-            facilis cumque, voluptatibus dolore ex non incidunt totam eos
-            veniam quo, animi facere. Ab provident quo, impedit ducimus
-            exercitationem illo.
-          </p>
+          {% for comment in message.comments.all %}
+          <h4>
+            {{ comment.owner.first_name }} {{ comment.owner.last_name }} -
+            {{ comment.created_at }}
+          </h4>
+          <p> {{ comment.text }}</p>
+          {% endfor %}
           <h4>Post a comment</h4>
           <form action="{% url 'app:create_comment' %}" method="POST">
             {% csrf_token %}
-            <textarea name="message_text" class="form-control" required></textarea>
+            <input type="hidden" name="message_id" value="{{ message.id }}">
+            <textarea name="comment_text" class="form-control" required></textarea>
             <button type="submit" class="btn btn-success">Post</button>
           </form>
         </div>
-      </div>
         {% endfor %}
+      </div>
     </section>
   </div>
 </body>
