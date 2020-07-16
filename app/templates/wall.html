@@ -21,7 +21,7 @@
   <header class="navbar text-light">
     <h1>Coding Dojo Wall</h1>
     <p>
-      Welcome Me
+      Welcome {{ request.session.user_name }}
       <a class="btn btn-warning" href="{% url 'app:logout' %}">Logout</a>
     </p>
   </header>

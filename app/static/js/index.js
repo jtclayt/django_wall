@@ -15,9 +15,16 @@
 
   /** Validate that pws match before sending to registration. */
   function onCheckPW() {
+    $('#pw-valid').removeClass('hidden');
+    $('#pw-valid').removeClass('text-success');
+    $('#pw-valid').removeClass('text-danger');
     if ($(this).val() === $('#pw').val()) {
+      $('#pw-valid').text('Passwords match');
+      $('#pw-valid').addClass('text-success');
       this.setCustomValidity('');
     } else {
+      $('#pw-valid').text('Passwords don\'t match');
+      $('#pw-valid').addClass('text-danger');
       this.setCustomValidity('Passwords must match.');
     }
   }
@@ -43,9 +50,11 @@
         if (data === 'available') {
           $('#email-valid').text('Email is available');
           $('#email-valid').addClass('text-success');
+          this.setCustomValidity('')
         } else {
           $('#email-valid').text('Email is unavailable');
           $('#email-valid').addClass('text-danger');
+          this.setCustomValidity('Email unavailable please login.')
         }
       });
     }

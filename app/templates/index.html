@@ -21,7 +21,7 @@
   <header class="navbar">
     <h1 class="text-light">Coding Dojo Wall</h1>
   </header>
-  <main class="container bg-light">
+  <main class="container bg-light text-center">
     <div class="row">
       <form class="col-lg-5" action="{% url 'app:login' %}" method="POST">
         {% csrf_token %}
@@ -95,6 +95,8 @@
           <input name="pw" id="pw" type="password" class="form-control"
             minlength="8" required>
         </div>
+
+        <p id='pw-valid' class="hidden"></p>
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">

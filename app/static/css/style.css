@@ -7,12 +7,12 @@ div.container {
   padding: 50px;
 }
 
-form {
+div.container form {
   display: flex;
   flex-direction: column;
 }
 
-form > button {
+div.container form > button {
   margin: 15px;
   align-self: flex-end;
 }
