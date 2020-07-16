@@ -60,7 +60,7 @@ class User(BaseModel):
 
 
 class Message(BaseModel):
-  user_id = models.ForeignKey(
+  owner = models.ForeignKey(
     User, on_delete=models.CASCADE, related_name='messages')
   text = models.TextField()
 
@@ -69,9 +69,9 @@ class Message(BaseModel):
 
 
 class Comment(BaseModel):
-  message_id = models.ForeignKey(
+  on_message = models.ForeignKey(
     Message, on_delete=models.CASCADE, related_name='comments')
-  user_id = models.ForeignKey(
+  owner = models.ForeignKey(
     User, on_delete=models.CASCADE, related_name='comments')
   text = models.TextField()
 

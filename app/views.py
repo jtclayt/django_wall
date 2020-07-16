@@ -65,13 +65,24 @@ def wall(request):
   )
   if is_auth:
     context = {
-      'messages': Message.objects.all().order_by('created_at')
+      'messages': Message.objects.all().order_by('-created_at')
     }
     return render(request, 'wall.html', context)
-  return HttpResponse(status=401)
+  return redirect(reverse('app:index'))
 
 # POST route for creating a new message
 def create_message(request):
+  if request.method == 'POST':
+    user_id = request.session['user_id']
+    is_auth = User.objects.is_user_authenticated(
+      user_id,
+      request.session['token']
+    )
+    if is_auth:
+      Message.objects.create(
+        owner = User.objects.get(id=user_id),
+        text = request.POST['message_text']
+      )
   return redirect(reverse('app:wall'))
 
 # POST route for deleting a message for logged in user

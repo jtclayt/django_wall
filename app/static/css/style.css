@@ -50,3 +50,8 @@ main {
 .row {
   justify-content: space-evenly;
 }
+
+/* ID rules */
+#comments {
+  padding-left: 50px;
+}

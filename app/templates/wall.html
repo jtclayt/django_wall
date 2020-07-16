@@ -27,10 +27,38 @@
   </header>
   <div class="container bg-light">
     <h2>Create a New Message</h2>
-    <form action="">
-      <textarea name="message_text" class="form-control"></textarea>
+    <form action="{% url 'app:create_message' %}" method="POST">{% csrf_token %}
+      <textarea name="message_text" class="form-control" required></textarea>
       <button type="submit" class="btn btn-primary">Post</button>
     </form>
+    <section id="messages">
+      <div class="message">
+        {% for message in messages %}
+        <h3>
+          {{ message.owner.first_name }} {{ message.owner.last_name }} -
+          {{ message.created_at }}
+        </h3>
+        <p>
+          {{ message.text }}
+        </p>
+        <div id="comments">
+          <h4>This is a comment</h4>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut sequi
+            facilis cumque, voluptatibus dolore ex non incidunt totam eos
+            veniam quo, animi facere. Ab provident quo, impedit ducimus
+            exercitationem illo.
+          </p>
+          <h4>Post a comment</h4>
+          <form action="{% url 'app:create_comment' %}" method="POST">
+            {% csrf_token %}
+            <textarea name="message_text" class="form-control" required></textarea>
+            <button type="submit" class="btn btn-success">Post</button>
+          </form>
+        </div>
+      </div>
+        {% endfor %}
+    </section>
   </div>
 </body>
 </html>
