@@ -18,7 +18,7 @@
   <script src="{% static 'js/index.js' %}"></script>
 </head>
 <body>
-  <header class="navbar text-light">
+  <header class="text-light">
     <h1>Coding Dojo Wall</h1>
     <p>
       Welcome {{ request.session.user_name }}
@@ -32,11 +32,19 @@
       <button type="submit" class="btn btn-primary">Post</button>
     </form>
     <section id="messages">
+      {% for message in messages %}
       <div class="message">
-        {% for message in messages %}
         <h3>
-          {{ message.owner.first_name }} {{ message.owner.last_name }} -
-          {{ message.created_at }}
+          <div>
+            {{ message.owner.first_name }} {{ message.owner.last_name }} -
+            {{ message.created_at }}
+          </div>
+          {% if message.owner.id == request.session.user_id %}
+          <form action="{% url 'app:destroy_message' message_id=message.id %}"
+            method="POST">{% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+          {% endif %}
         </h3>
         <p>
           {{ message.text }}
@@ -44,8 +52,16 @@
         <div id="comments">
           {% for comment in message.comments.all %}
           <h4>
-            {{ comment.owner.first_name }} {{ comment.owner.last_name }} -
-            {{ comment.created_at }}
+            <div>
+              {{ comment.owner.first_name }} {{ comment.owner.last_name }} -
+              {{ comment.created_at }}
+            </div>
+            {% if comment.owner.id == request.session.user_id %}
+            <form action="{% url 'app:destroy_comment' comment_id=comment.id %}"
+              method="POST">{% csrf_token %}
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            {% endif %}
           </h4>
           <p> {{ comment.text }}</p>
           {% endfor %}
@@ -57,8 +73,8 @@
             <button type="submit" class="btn btn-success">Post</button>
           </form>
         </div>
-        {% endfor %}
       </div>
+      {% endfor %}
     </section>
   </div>
 </body>

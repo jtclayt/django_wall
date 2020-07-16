@@ -12,7 +12,7 @@ div.container form {
   flex-direction: column;
 }
 
-div.container form > button {
+div > form > button {
   margin: 15px;
   align-self: flex-end;
 }
@@ -21,10 +21,15 @@ form > p {
   margin: 15px 0 5px 0;
 }
 
-header.navbar {
+body > header, h3, h4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header {
   padding: 10px 100px;
   background-color: rgb(49, 14, 90);
-  justify-content: space-between;
 }
 
 header p {
@@ -39,12 +44,20 @@ main {
   margin-top: 50px;
   padding: 50px;
   border-radius: 20px;
-  box-shadow: 5px 5px 3px rgb(202, 197, 190);
+  box-shadow: 5px 5px 3px rgb(194, 190, 185);
 }
 
 /* Class rules */
 .hidden {
   display: none;
+}
+
+.message {
+  background-color: rgb(206, 200, 216);
+  margin: 20px 0 40px 0;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: rgb(161, 156, 167) 5px 5px 3px;
 }
 
 .row {

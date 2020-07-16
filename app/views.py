@@ -88,6 +88,20 @@ def create_message(request):
 
 # POST route for deleting a message for logged in user
 def destroy_message(request, message_id):
+  if request.method == 'POST':
+    user_id = request.session['user_id']
+    is_auth = User.objects.is_user_authenticated(
+      user_id,
+      request.session['token']
+    )
+    try:
+      message = Message.objects.get(id=message_id)
+    except Message.DoesNotExist:
+      return HttpResponse('Message does not exist', status=404)
+    if not is_auth or message.owner.id != user_id:
+      return HttpResponse('This is not your message', status=401)
+
+    message.delete()
   return redirect(reverse('app:wall'))
 
 # POST route for creating a new comment on a message
@@ -109,6 +123,20 @@ def create_comment(request):
 
 # POST route for deleting a comment for logged in user
 def destroy_comment(request, comment_id):
+  if request.method == 'POST':
+    user_id = request.session['user_id']
+    is_auth = User.objects.is_user_authenticated(
+      user_id,
+      request.session['token']
+    )
+    try:
+      comment = Comment.objects.get(id=comment_id)
+    except Comment.DoesNotExist:
+      return HttpResponse('Comment does not exist', status=404)
+    if not is_auth or comment.owner.id != user_id:
+      return HttpResponse('This is not your message', status=401)
+
+    comment.delete()
   return redirect(reverse('app:wall'))
 
 # GET route for logging out a user
